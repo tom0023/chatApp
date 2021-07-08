@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "chatapp-d91a2"
+  },
+  "targets": {
+    "chatapp-d91a2": {
+      "hosting": {
+        "chatApp": [
+          "chatapp-d91a2"
+        ]
+      }
+    }
+  }
+}
