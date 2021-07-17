@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/service/session.service';
+import { Password } from 'src/app/class/chat';
 
 import { Observable } from 'rxjs';
 
@@ -10,13 +11,16 @@ import { Observable } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
+  public account = new Password();
+
   constructor(private sessionService: SessionService) { }
 
   ngOnInit(){
   }
 
-  submitLogin(){
-    this.sessionService.login();
+  submitLogin(e: Event){
+    e.preventDefault();
+    this.sessionService.login(this.account);
   }
 
 }
