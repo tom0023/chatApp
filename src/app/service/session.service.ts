@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Password, Session } from '../class/chat';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -57,5 +58,25 @@ export class SessionService {
         console.log(err);
         alert('アカウント作成に失敗しました\n'+ err);
       })
+  }
+
+  checkLogin(): void{
+    this.afAuth
+      .authState
+      .subscribe(auth => {
+        this.session.login = (!!auth);
+        this.sessionSubject.next(this.session);
+      });
+  }
+
+  checkLoginState(): Observable<Session>{
+    return this.afAuth
+      .authState
+      .pipe(
+        map(auth => {
+          this.session.login = (!!auth);
+          return this.session;
+        })
+      )
   }
 }
